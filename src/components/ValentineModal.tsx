@@ -47,8 +47,7 @@ const ValentineModal = ({ open, onAnswer }: ValentineModalProps) => {
           <Button
             onMouseEnter={moveNoButton}
             onTouchStart={moveNoButton}
-            variant="outline"
-            className="border-foreground/50 text-foreground bg-background hover:bg-background font-semibold text-lg px-8 py-3 rounded-full transition-transform duration-300 ease-out"
+            className="bg-primary-foreground text-primary hover:bg-primary-foreground/90 font-semibold text-lg px-8 py-3 rounded-full transition-transform duration-300 ease-out"
             style={{ transform: `translate(${noPos.x}px, ${noPos.y}px)` }}
             aria-label="No button that runs away"
           >
