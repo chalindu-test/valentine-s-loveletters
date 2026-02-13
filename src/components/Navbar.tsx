@@ -1,15 +1,27 @@
+import { useRef, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Heart } from "lucide-react";
+import { Heart, Volume2, VolumeX } from "lucide-react";
 
 const navItems = [
   { to: "/", label: "Home" },
   { to: "/memories", label: "Memories" },
-  { to: "/song", label: "Our Song" },
   { to: "/timeline", label: "Timeline" },
 ];
 
 const Navbar = () => {
   const location = useLocation();
+  const [playing, setPlaying] = useState(false);
+  const audioRef = useRef<HTMLAudioElement>(null);
+
+  const toggleAudio = () => {
+    if (!audioRef.current) return;
+    if (playing) {
+      audioRef.current.pause();
+    } else {
+      audioRef.current.play().catch(() => {});
+    }
+    setPlaying(!playing);
+  };
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-card/70 border-b border-border/50">
@@ -18,7 +30,7 @@ const Navbar = () => {
           <Heart className="w-5 h-5 fill-primary text-primary" />
           LoveLetters
         </Link>
-        <div className="flex gap-1 sm:gap-4">
+        <div className="flex items-center gap-1 sm:gap-4">
           {navItems.map((item) => (
             <Link
               key={item.to}
@@ -32,8 +44,16 @@ const Navbar = () => {
               {item.label}
             </Link>
           ))}
+          <button
+            onClick={toggleAudio}
+            className="ml-2 p-2 rounded-full text-muted-foreground hover:text-primary hover:bg-primary/10 transition-colors"
+            aria-label={playing ? "Mute song" : "Play song"}
+          >
+            {playing ? <Volume2 className="w-5 h-5" /> : <VolumeX className="w-5 h-5" />}
+          </button>
         </div>
       </div>
+      <audio ref={audioRef} src="/our-song.mp3" loop />
     </nav>
   );
 };
