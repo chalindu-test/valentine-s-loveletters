@@ -1,0 +1,1 @@
+- Memories page title icon is cropped. "📸 Our Memories". Fix.
