@@ -7,54 +7,67 @@ interface Petal {
   duration: number;
   size: number;
   swayDuration: number;
-  type: "heart" | "petal";
+  rotation: number;
   hue: number;
+  opacity: number;
 }
 
 const HeartParticles = () => {
-  const [particles, setParticles] = useState<Petal[]>([]);
+  const [petals, setPetals] = useState<Petal[]>([]);
 
   useEffect(() => {
-    const generated: Petal[] = Array.from({ length: 30 }, (_, i) => ({
+    const generated: Petal[] = Array.from({ length: 25 }, (_, i) => ({
       id: i,
       left: Math.random() * 100,
-      delay: Math.random() * 10,
+      delay: Math.random() * 12,
       duration: 8 + Math.random() * 10,
-      size: 14 + Math.random() * 22,
+      size: 16 + Math.random() * 24,
       swayDuration: 3 + Math.random() * 4,
-      type: i < 10 ? "heart" : "petal",
-      hue: 340 + Math.random() * 30, // pink-red range
+      rotation: Math.random() * 360,
+      hue: 340 + Math.random() * 25,
+      opacity: 0.4 + Math.random() * 0.4,
     }));
-    setParticles(generated);
+    setPetals(generated);
   }, []);
 
   return (
     <div className="fixed inset-0 pointer-events-none overflow-hidden z-0" aria-hidden="true">
-      {particles.map((p) => (
+      {petals.map((p) => (
         <span
           key={p.id}
           className="absolute"
           style={{
             left: `${p.left}%`,
-            fontSize: `${p.size}px`,
             animation: `fall ${p.duration}s linear ${p.delay}s infinite, petal-sway ${p.swayDuration}s ease-in-out ${p.delay}s infinite`,
-            opacity: p.type === "petal" ? 0.6 : 0.2,
-            color: p.type === "petal" ? `hsl(${p.hue}, 70%, 65%)` : undefined,
+            opacity: p.opacity,
           }}
         >
-          {p.type === "heart" ? (
-            <span className="text-primary/20">♥</span>
-          ) : (
-            <svg
-              width={p.size}
-              height={p.size}
-              viewBox="0 0 24 24"
-              fill="currentColor"
-              style={{ filter: "drop-shadow(0 1px 2px rgba(255,107,138,0.3))" }}
-            >
-              <ellipse cx="12" cy="10" rx="6" ry="10" transform="rotate(-30 12 10)" />
-            </svg>
-          )}
+          <svg
+            width={p.size}
+            height={p.size}
+            viewBox="0 0 24 24"
+            style={{
+              transform: `rotate(${p.rotation}deg)`,
+              filter: "drop-shadow(0 2px 4px rgba(255,107,138,0.25))",
+            }}
+          >
+            <ellipse
+              cx="12"
+              cy="10"
+              rx="5.5"
+              ry="9.5"
+              fill={`hsl(${p.hue}, 65%, 68%)`}
+              transform="rotate(-20 12 10)"
+            />
+            <ellipse
+              cx="12"
+              cy="10"
+              rx="4"
+              ry="8"
+              fill={`hsl(${p.hue}, 55%, 75%)`}
+              transform="rotate(10 12 10)"
+            />
+          </svg>
         </span>
       ))}
     </div>
