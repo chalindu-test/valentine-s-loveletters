@@ -7,7 +7,6 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Index from "./pages/Index";
 import Memories from "./pages/Memories";
-import Song from "./pages/Song";
 import Timeline from "./pages/Timeline";
 import NotFound from "./pages/NotFound";
 
@@ -24,7 +23,6 @@ const App = () => (
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/memories" element={<Memories />} />
-            <Route path="/song" element={<Song />} />
             <Route path="/timeline" element={<Timeline />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
