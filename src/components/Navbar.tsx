@@ -28,7 +28,7 @@ const Navbar = () => {
       <div className="container mx-auto flex items-center justify-between py-3 px-4">
         <Link to="/" className="flex items-center gap-2 font-script text-2xl text-primary" aria-label="Home">
           <Heart className="w-5 h-5 fill-primary text-primary" />
-          LoveLetters
+          Pawani+Chalindu
         </Link>
         <div className="flex items-center gap-1 sm:gap-4">
           {navItems.map((item) => (
